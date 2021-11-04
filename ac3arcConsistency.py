@@ -1,3 +1,6 @@
+from domains import getDomain
+from chooseEmpty import getEmptyCell
+
 def tryAc3(board):
     changed = True
     i=0

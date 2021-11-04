@@ -16,6 +16,7 @@ def notInSquare(board,cs,string_i):
             if board[i][j]==string_i:
                 return False
     return True
+
 def notInCol(board,cs,string_i):
     return string_i not in [x[cs[1]] for x in board]
 

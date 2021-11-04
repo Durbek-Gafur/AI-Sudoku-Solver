@@ -5,14 +5,16 @@ from chooseEmpty import getEmptyCell
 
 
 
-def solveSudoku( board) -> None:
+def solveSudoku( board,x) -> None:
     setDomains(board)
-    recursiveSudoku(board)
+    recursiveSudoku(board,x)
     for r in board: print(r,"\n")
         
 
-def recursiveSudoku( board) -> None:
+def recursiveSudoku(board,x) -> None:
+    x[0]+=1
     # get empty cell
+    
     currentCell = getEmptyCell(board)
 
     # no empty cells
@@ -29,10 +31,10 @@ def recursiveSudoku( board) -> None:
         # assinging value and forwardchecking
         tmpVal,board[currentCell[0]][currentCell[1]] = board[currentCell[0]][currentCell[1]], val
         forwardCheck(board,currentCell)
-
+        print(x[0],currentCell, val)
         # returns board when the assignments are complete
-        if recursiveSudoku(board): return board
-
+        if recursiveSudoku(board,x): return board
+        print("backtracking", currentCell)
         # removing assignment and reversing forwardchecking
         board[currentCell[0]][currentCell[1]] = tmpVal
         forwardCheck(board,currentCell)
@@ -40,6 +42,20 @@ def recursiveSudoku( board) -> None:
     return False
 
 if __name__ == "__main__":
-    board = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
-    solveSudoku(board)
+    board = [
+    ["5","3",".",".","7",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."]
+    ]
+    
+    x=[0]
+    solveSudoku(board,x)
+    
+    print(x[0])
     
