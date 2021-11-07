@@ -1,7 +1,7 @@
 from collections import defaultdict
 from domains import getDomain,getBoundary
 
-def MRV(board):
+def MRV(board,verbose):
     minLen = 100
     ans = defaultdict(list)
     ans[100].append((-1,-1))
@@ -13,7 +13,7 @@ def MRV(board):
                     ans[clen].append((i,j))
                     minLen = clen
                     minim = (i,j)
-    # print("minLen ",minLen)
+    if verbose: print("domain-size-",minLen)
     return ans[minLen]
 
 
@@ -38,7 +38,7 @@ def countUnassigned(board,cs):
             if isinstance(board[i][j],list) : counter+=1 #or "."==board[i][j]   
     return counter-2
     # get the number of unassigned values for each mrv
-def degreeHeuristic(board, mrv):
+def degreeHeuristic(board, mrv,verbose):
     ans = defaultdict(list)
     mx = -float("inf")
     # mn = float("inf")
@@ -48,16 +48,17 @@ def degreeHeuristic(board, mrv):
         mx = max(mx,count)
         # mn = min(mn,count)
         # break
-    # print("max constraints ", mx,ans)
+    if verbose: print("degree-", mx)
     return ans[mx]
 
-def getEmptyCell(board):
-    mrv = MRV(board)
+def getEmptyCell(board,verbose):
+    mrv = MRV(board,verbose)
     if mrv[0][0]==-1:
         return mrv[0]
-    degreeHeuristicVal = degreeHeuristic(board,mrv)
+    degreeHeuristicVal = degreeHeuristic(board,mrv,verbose)
     # print("mrv->",mrv,"dh->",degreeHeuristicVal)
     # for key in tmp: print(key, tmp[key])
+    # if verbose: print("value->",degreeHeuristicVal[0])
     return degreeHeuristicVal[0]
 
 # bboard=[["5","3",".",".","7",".",".",".","."],
