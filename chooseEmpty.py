@@ -1,13 +1,14 @@
 from collections import defaultdict
 from domains import getDomain,getBoundary
 
+    # chooses variables(cell) with the least number of values in the domain
 def MRV(board,verbose):
     minLen = 100
     ans = defaultdict(list)
     ans[100].append((-1,-1))
     for i in range(len(board)):
         for j in range(len(board[0])):
-            if isinstance(board[i][j],list) or "."==board[i][j]: #remove .
+            if isinstance(board[i][j],list): 
                 clen = len(board[i][j])
                 if clen <= minLen:
                     ans[clen].append((i,j))
@@ -26,7 +27,7 @@ def countUnassigned(board,cs):
     j = cs[1]
     # unassigneds in a col
     for i in range(len(board)): 
-        if isinstance(board[i][j],list) or "."==board[i][j]:  counter+=1   
+        if isinstance(board[i][j],list):  counter+=1   
 
     # updating domain of triplet 
     xb = getBoundary(cs[0])
@@ -37,7 +38,8 @@ def countUnassigned(board,cs):
             if j == cs[1]: continue
             if isinstance(board[i][j],list) : counter+=1 #or "."==board[i][j]   
     return counter-2
-    # get the number of unassigned values for each mrv
+
+    # get the number of unassigned values for each variable returned by mrv
 def degreeHeuristic(board, mrv,verbose):
     ans = defaultdict(list)
     mx = -float("inf")
@@ -51,23 +53,11 @@ def degreeHeuristic(board, mrv,verbose):
     if verbose: print("degree-", mx)
     return ans[mx]
 
+    # chooses next empty cell based on MRV and Degree Heuristic
 def getEmptyCell(board,verbose):
     mrv = MRV(board,verbose)
     if mrv[0][0]==-1:
         return mrv[0]
     degreeHeuristicVal = degreeHeuristic(board,mrv,verbose)
-    # print("mrv->",mrv,"dh->",degreeHeuristicVal)
-    # for key in tmp: print(key, tmp[key])
-    # if verbose: print("value->",degreeHeuristicVal[0])
     return degreeHeuristicVal[0]
 
-# bboard=[["5","3",".",".","7",".",".",".","."],
-#         ["6",".",".","1","9","5",".",".","."],
-#         [".","9","8",".",".",".",".","6","."],
-#         ["8",".",".",".","6",".",".",".","3"],
-#         ["4",".",".","8",".","3",".",".","1"],
-#         ["7",".",".",".","2",".",".",".","6"],
-#         [".","6",".",".",".",".","2","8","."],
-#         [".",".",".","4","1","9",".",".","5"],
-#         [".",".",".",".","8",".",".","7","9"]]
-# print(getEmptyCell(bboard))
