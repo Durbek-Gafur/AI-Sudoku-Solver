@@ -14,7 +14,7 @@ def MRV(board,verbose):
                     ans[clen].append((i,j))
                     minLen = clen
                     minim = (i,j)
-    if verbose: print("domain-size-",minLen)
+    # if verbose: print("domain-size-",minLen)
     return ans[minLen]
 
 
@@ -41,6 +41,7 @@ def countUnassigned(board,cs):
 
     # get the number of unassigned values for each variable returned by mrv
 def degreeHeuristic(board, mrv,verbose):
+    # return mrv
     ans = defaultdict(list)
     mx = -float("inf")
     # mn = float("inf")
