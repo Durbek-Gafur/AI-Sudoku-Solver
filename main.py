@@ -83,12 +83,16 @@ if __name__ == "__main__":
     [".",".",".",".",".",".",".","1","."],
     ["1",".","6",".","5",".",".","7","."]
     ]
+
+    print("Test 1")
     x=[0]
-    # solveSudoku(board1,x) 
+    solveSudoku(board1,x) 
+    print("Test 2")
     x=[0]
     solveSudoku(board2,x)
+    print("Test 3")
     x=[0]
-    # solveSudoku(board3,x)
+    solveSudoku(board3,x)
     
     
     

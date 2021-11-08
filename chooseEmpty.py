@@ -56,7 +56,7 @@ def degreeHeuristic(board, mrv,verbose):
     # chooses next empty cell based on MRV and Degree Heuristic
 def getEmptyCell(board,verbose):
     mrv = MRV(board,verbose)
-    if 1:
+    if mrv[0][0]==-1:
         return (mrv[0],-1)
     return degreeHeuristic(board,mrv,verbose)
 
