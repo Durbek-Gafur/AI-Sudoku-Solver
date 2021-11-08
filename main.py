@@ -9,6 +9,7 @@ def solveSudoku( board,x) -> None:
     setDomains(board)
     recursiveSudoku(board,x)
     for r in board: print(r,"\n")
+    print("Overall steps", x[0],"\n\n\n")
         
 
 def recursiveSudoku(board,x) -> None:
@@ -16,7 +17,7 @@ def recursiveSudoku(board,x) -> None:
     # get empty cell
     verbose = False
     if x[0]<6: verbose = True
-    currentCell = getEmptyCell(board,verbose)
+    currentCell,degree = getEmptyCell(board,verbose)
 
     # no empty cells
     if currentCell[0]==-1: return board
@@ -30,17 +31,18 @@ def recursiveSudoku(board,x) -> None:
     for val in queue:
         # assinging value and forwardchecking
         tmpVal,board[currentCell[0]][currentCell[1]] = board[currentCell[0]][currentCell[1]], val
+        
         forwardCheck(board,currentCell)
-        if x[0]<6:
-            print(x[0],"variable-",currentCell,"domain_size-",len(queue),"val-", val)
-            print(x[0],currentCell, val)
-            for r in board: print(r,"\n")            
+        if x[0]<6: 
+            print("Step\t\t",x[0],"\nVariable\t",currentCell,"\nDomain size\t",len(queue),"\nDegree\t\t",degree,"\nValue\t\t", val)
+            # print(x[0],currentCell, val)
+            # for r in board: print(r,"\n")            
             print("=================================")
             print("=================================")
 
         # returns board when the assignments are complete
         if recursiveSudoku(board,x): return board
-        print("backtracking", currentCell)
+        # print("backtracking", currentCell)
         # removing assignment and reversing forwardchecking
         board[currentCell[0]][currentCell[1]] = tmpVal
         forwardCheck(board,currentCell)
@@ -82,9 +84,11 @@ if __name__ == "__main__":
     ["1",".","6",".","5",".",".","7","."]
     ]
     x=[0]
-    # solveSudoku(board1,x)
+    # solveSudoku(board1,x) 
+    x=[0]
     solveSudoku(board2,x)
+    x=[0]
     # solveSudoku(board3,x)
     
-    print(x[0])
+    
     
