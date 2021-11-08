@@ -5,7 +5,8 @@ from chooseEmpty import getEmptyCell
 
 
 
-def solveSudoku( board,x) -> None:
+def solveSudoku(board) -> None:
+    x=[0]
     setDomains(board)
     recursiveSudoku(board,x)
     for r in board: print(r,"\n")
@@ -85,14 +86,11 @@ if __name__ == "__main__":
     ]
 
     print("Test 1")
-    x=[0]
-    solveSudoku(board1,x) 
+    solveSudoku(board1) 
     print("Test 2")
-    x=[0]
-    solveSudoku(board2,x)
+    solveSudoku(board2)
     print("Test 3")
-    x=[0]
-    solveSudoku(board3,x)
+    solveSudoku(board3)
     
     
     
